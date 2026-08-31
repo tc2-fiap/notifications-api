@@ -15,7 +15,7 @@ Sobe este serviço mais seu próprio Postgres e RabbitMQ. API em `localhost:8082
 
 ## Rodar como parte do sistema
 
-Implantado pelo chart Helm `orchestration` junto com os outros quatro serviços de backend e o frontend — ver [`../orchestration/README.pt-BR.md`](../orchestration/README.pt-BR.md). Acessado pelo Ingress compartilhado em `/api/notifications/*` (somente admin).
+Implantado pelo chart Helm [`orchestration`](https://github.com/tc2-fiap/orchestration) junto com os outros quatro serviços de backend e o frontend — ver [`../orchestration/README.pt-BR.md`](../orchestration/README.pt-BR.md). Acessado pelo Ingress compartilhado em `/api/notifications/*` (somente admin).
 
 ## O que tem aqui
 

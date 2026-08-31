@@ -15,7 +15,7 @@ Brings up this service plus its own Postgres and RabbitMQ. API on `localhost:808
 
 ## Run as part of the system
 
-Deployed by the `orchestration` Helm chart alongside the other four backend services and the frontend — see [`../orchestration/README.en-US.md`](../orchestration/README.en-US.md). Reached through the shared Ingress at `/api/notifications/*` (admin-only).
+Deployed by the [`orchestration`](https://github.com/tc2-fiap/orchestration) Helm chart alongside the other four backend services and the frontend — see [`../orchestration/README.en-US.md`](../orchestration/README.en-US.md). Reached through the shared Ingress at `/api/notifications/*` (admin-only).
 
 ## What's here
 
