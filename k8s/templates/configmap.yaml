@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: notifications-api-config
+  namespace: {{ .Values.global.namespace }}
+data:
+  POSTGRES_HOST: {{ .Values.postgres.host | quote }}
+  POSTGRES_PORT: {{ .Values.postgres.port | quote }}
+  POSTGRES_DATABASE: {{ .Values.postgres.database | quote }}
+  POSTGRES_USERNAME: {{ .Values.postgres.username | quote }}
+  POSTGRES_SEARCHPATH: {{ .Values.postgres.searchPath | quote }}
+  EMAIL_PROVIDER: {{ .Values.email.provider | quote }}

@@ -1,0 +1,19 @@
+replicaCount: 1
+
+image:
+  repository: notifications-api
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  port: 8080
+
+postgres:
+  host: postgres
+  port: "5432"
+  database: fiap_games
+  username: notifications_role
+  searchPath: notifications
+
+email:
+  provider: console
