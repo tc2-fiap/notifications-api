@@ -26,7 +26,7 @@ public class PaymentProcessedConsumerTests
     [Fact]
     public async Task Consume_WhenNoUserProjectionExists_LogsAndSkipsWithoutThrowing()
     {
-        var message = new PaymentProcessedEvent(Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid(), PaymentStatus.Approved);
+        var message = new PaymentProcessedEvent(Guid.NewGuid(), Guid.NewGuid(), PaymentStatus.Approved);
         _userProjections.GetAsync(message.UserId, Arg.Any<CancellationToken>()).Returns((UserProjection?)null);
 
         var context = Substitute.For<ConsumeContext<PaymentProcessedEvent>>();
@@ -42,7 +42,7 @@ public class PaymentProcessedConsumerTests
     public async Task Consume_IsKeyedOnOrderId_RegardlessOfStatus()
     {
         var orderId = Guid.NewGuid();
-        var message = new PaymentProcessedEvent(orderId, Guid.NewGuid(), Guid.NewGuid(), PaymentStatus.Approved);
+        var message = new PaymentProcessedEvent(orderId, Guid.NewGuid(), PaymentStatus.Approved);
         _userProjections.GetAsync(message.UserId, Arg.Any<CancellationToken>())
             .Returns(new UserProjection(message.UserId, "Jane Doe", "jane@example.com"));
         _repository.TryClaimAsync(Arg.Any<Notification>(), Arg.Any<CancellationToken>()).Returns(true);
@@ -61,7 +61,7 @@ public class PaymentProcessedConsumerTests
     [Fact]
     public async Task Consume_WhenAlreadySent_SkipsWithoutSendingEmailAgain()
     {
-        var message = new PaymentProcessedEvent(Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid(), PaymentStatus.Rejected);
+        var message = new PaymentProcessedEvent(Guid.NewGuid(), Guid.NewGuid(), PaymentStatus.Rejected);
         _userProjections.GetAsync(message.UserId, Arg.Any<CancellationToken>())
             .Returns(new UserProjection(message.UserId, "Jane Doe", "jane@example.com"));
         _repository.TryClaimAsync(Arg.Any<Notification>(), Arg.Any<CancellationToken>()).Returns(false);
