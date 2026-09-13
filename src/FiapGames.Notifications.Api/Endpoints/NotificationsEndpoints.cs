@@ -6,7 +6,7 @@ namespace FiapGames.Notifications.Api.Endpoints;
 
 public static class NotificationsEndpoints
 {
-    public static IEndpointRouteBuilder MapNotificationsEndpoints(this IEndpointRouteBuilder endpoints)
+    public static IEndpointRouteBuilder MapNotificationsEndpoints(this IEndpointRouteBuilder endpoints, Func<IResult> getVersion)
     {
         endpoints.MapGet("/api/notifications", async (Guid orderId, INotificationRepository repository, CancellationToken cancellationToken) =>
         {
@@ -29,6 +29,13 @@ public static class NotificationsEndpoints
             var items = paged.Items.Select(NotificationResponse.FromDomain).ToList();
             return Results.Ok(new PagedResult<NotificationResponse>(items, paged.TotalCount, paged.Page, paged.PageSize));
         })
+        .WithTags("Notifications")
+        .RequireAuthorization(p => p.RequireRole("Admin"));
+
+        // Admin-dashboard-facing twin of the bare /version (see Program.cs):
+        // same handler, reached via the Ingress like any other route here
+        // instead of only via kubectl port-forward, gated to Admin.
+        endpoints.MapGet("/api/notifications/version", getVersion)
         .WithTags("Notifications")
         .RequireAuthorization(p => p.RequireRole("Admin"));
 
