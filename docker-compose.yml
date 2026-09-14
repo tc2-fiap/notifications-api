@@ -35,8 +35,8 @@ services:
 
   notifications-api:
     build:
-      context: ./src/FiapGames.Notifications.Api
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: src/FiapGames.Notifications.Api/Dockerfile
     restart: unless-stopped
     ports:
       - "8082:8080"
